@@ -12,11 +12,15 @@ class BookController extends Controller
         // return 'Hello from index';
 
         //load data from database
-        $books = Book::whereBetween('price', [10, 15])
-                ->where('stock', '>', 0)
-                ->orderBy('price')
-                ->get();
+        $books = Book::paginate((10));
         
         return view("books.index")->with("books", $books);
+    }
+    public function show($id)
+    {
+        // return 'showing ' . $id;
+        $book = Book::find($id);
+
+        return view("books.show")->with("book", $book);
     }
 }

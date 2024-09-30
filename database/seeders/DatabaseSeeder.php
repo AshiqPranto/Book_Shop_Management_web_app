@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
 
         Book::truncate();
         Book::factory()->count(1000)->create();
+
     }
 }
