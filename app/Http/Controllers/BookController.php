@@ -51,4 +51,36 @@ class BookController extends Controller
 
         return redirect()->route("books.index");
     }
+    public function search(Request $request)
+    {
+        $text = '%' . $request->search . '%';
+        $employees = Employee::where('name', 'LIKE', $text)->paginate(10);; 
+        return view('employee.index')->with('employees', $employees);
+    }
+    public function edit(Request $request, $id)
+    {
+        $employee = Employee::find($id);
+
+        return view('employee.update')->with('employee', $employee);
+    }
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            "name" => "required|string|max:255",
+            "job_title" => "required|string|max:100",
+            "joining_date" => "required|date",
+            "salary" => "required|numeric|min:0",
+            "email" => "nullable|email|max:255",
+            "mobile_no" => "required|string|max:15",
+            "address" => "nullable|string",
+        ];
+
+        $request->validate($rules);
+
+        $employee = Employee::find($id);
+
+        $employee->update($request->all());
+
+        return redirect()->route("employee.show", $employee->id);
+    }
 }

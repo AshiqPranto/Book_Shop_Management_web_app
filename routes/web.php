@@ -23,3 +23,5 @@ Route::get('/books/{book}/show', [BookController::class,'show'])->name("books.sh
 Route::get("books/create", [BookController::class, 'create'])->name('books.create');
 Route::post("/books", [BookController::class,"store"])->name("books.store");
 Route::delete("/books/{id}", [BookController::class,"destroy"])->name("books.destroy");
+Route::edit()
+
