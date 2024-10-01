@@ -44,4 +44,11 @@ class BookController extends Controller
         $book = Book::create($request->all());
         return redirect()->route("books.show", $book->id);
     }
+    public function destroy(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $book->delete();
+
+        return redirect()->route("books.index");
+    }
 }

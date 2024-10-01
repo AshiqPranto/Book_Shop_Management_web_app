@@ -13,14 +13,21 @@
             <th>ID</th>
             <th>Title</th>
             <th>Author</th>
-            <th>Detals</th>
+            <th>Details</th>
         </tr>
         @foreach ($books as $book)
         <tr>
             <td>{{$book->id}}</td>
             <td>{{$book->title}}</td>
             <td>{{$book->author}}</td>
-            <td><a href="{{route('books.show', $book->id)}}"> Details</a></td>
+            <td>
+                <a href="{{route('books.show', $book->id)}}"> Details</a>
+                <form method="post" action="{{route("books.destroy", $book->id)}}" onsubmit="return confirm('Sure?')">
+                    @csrf
+                    @method('DELETE')
+                    <input class="btn btn-link" type="submit" value="Delete">
+                </form>
+            </td>
         </tr>
         @endforeach
     </table>
